@@ -1,5 +1,7 @@
 
 const handlePostSubmit = function(event){
+    let productId = event.target.productId
+    console.log(productId)
     event.preventDefault()
     const newProduct = {
         name: document.getElementById("name").value,
@@ -29,6 +31,7 @@ const handlePostSubmit = function(event){
 
 
 
+
 const searchWith = function(event){
     event.preventDefault()
     fetch("https://striveschool-api.herokuapp.com/api/product/", {
@@ -48,7 +51,7 @@ const searchWith = function(event){
         const filteredItems = (products.filter((product)=> product[selectedFilter].toLowerCase().includes(searchInput.toLowerCase())))
         // console.log(filteredItems)
 
-        displayProducts(filteredItems)
+        // displayProducts(filteredItems)
  
 })
 .catch(err=>{
@@ -56,9 +59,7 @@ const searchWith = function(event){
 })
 }
 
-
-const loadProducts = function(){
-   
+const loadProducts = function(){   
     fetch("https://striveschool-api.herokuapp.com/api/product/", {
         headers: {
         "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIwYWU1OTRjZmY1ZjAwMTU5MGJkYWYiLCJpYXQiOjE2Mzg5Njg5MjIsImV4cCI6MTY0MDE3ODUyMn0.I62rqMBiig_57YNcK0VzC7hRA65djJbbJ_wdeyHseRc"
@@ -78,27 +79,32 @@ const loadProducts = function(){
 const displayProducts = function(items){
 
     let displayCards = document.getElementById("displayCards")
-    items.reverse().forEach(item =>{
-           displayCards.innerHTML +=`<div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-            <div class="card" style="width: 18rem;">
-  <img src="${item.imageUrl}" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Product Name :${item.name}</h5>   
-    <p class="card-text">User Id : ${item._id}</p>
-    <p class="card-text"> Brand : ${item.brand}</p>
-    <p class="card-text"> Price : ${item.price}</p>
-    <p class="card-text"> Info : ${item.description}</p>
-    <a href="detail.html?id=${item._id}" class="btn btn-primary">Detail </a>
-  </div>
-  </div>
-</div>`
-})
+    displayCards.innerHTML=""
+    console.log(items)
+    if(items){
+        items.reverse().forEach(item =>{
+               displayCards.innerHTML +=`<div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="card" style="width: 18rem;">
+                <img src="${item.imageUrl}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Product Name :${item.name}</h5>   
+                    <p class="card-text">User Id : ${item._id}</p>
+                    <p class="card-text"> Brand : ${item.brand}</p>
+                    <p class="card-text"> Price : ${item.price}</p>
+                    <p class="card-text"> Info : ${item.description}</p>
+                    <a href="detail.html?productId=${item._id}" class="btn btn-primary">Detail </a>
+                </div>
+                </div>
+                </div>`
+            })
+    }
 }
 
-loadProducts()
-
-window.onload = function(){
 
 
+// window.onload = function(){
+//     loadProducts()
 
-}
+
+
+// }
