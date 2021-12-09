@@ -51,16 +51,16 @@
         }
     })
       .then(response => response.json())
-      .then(data =>{
+      .then(products =>{
         let banner = document.querySelector(".banner")
-        banner.src = data.imageUrl
+        banner.src = products.imageUrl
         let productDetail = document.querySelector(".productDetail")
         productDetail.innerHTML = ""
         productDetail.innerHTML =`<ul class="list-group list-group-flush">
-          <li class="list-group-item">An item</li>
-          <li class="list-group-item">A second item</li>
-          <li class="list-group-item">A third item</li>
-          <li class="list-group-item">A fourth item</li>
+          <li class="list-group-item">Product Name : ${products.name}</li>
+          <li class="list-group-item">Price :${products.price}</li>
+          <li class="list-group-item"> Brand "${products.brand}</li>
+          <li class="list-group-item">Description : ${products.description}</li>
           <li class="list-group-item"><a  href="form.html?productId=${productId}" class="btn btn-secondary" onclick="handleEdit(event)"  type="button">Edit</a></li>
         </ul>`
       })
