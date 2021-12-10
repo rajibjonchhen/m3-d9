@@ -80,7 +80,7 @@
         document.getElementById("description").value =products.description
         document.getElementById("brand").value =products.brand
         document.getElementById("price").value =products.price
-        document.getElementById("image").value =products.image
+        document.getElementById("image").value =products.imageUrl
       }).catch(err => alertBox(err,"danger"))
 
         
