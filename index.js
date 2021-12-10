@@ -1,33 +1,4 @@
 
-const handlePostSubmit = function(event){
-    let productId = event.target.productId
-    console.log(productId)
-    event.preventDefault()
-    const newProduct = {
-        name: document.getElementById("name").value,
-        description: document.getElementById("description").value,
-        brand: document.getElementById("brand").value,
-        price: document.getElementById("price").value,
-        imageUrl: document.getElementById("image").value
-    }
-
-    console.log(newProduct.name)
-    fetch("https://striveschool-api.herokuapp.com/api/product/", {
-        method:"POST",
-        body:JSON.stringify(newProduct),
-        headers: {
-        'Content-Type': 'application/json',
-        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIwYWU1OTRjZmY1ZjAwMTU5MGJkYWYiLCJpYXQiOjE2Mzg5Njg5MjIsImV4cCI6MTY0MDE3ODUyMn0.I62rqMBiig_57YNcK0VzC7hRA65djJbbJ_wdeyHseRc"
-        }
-    })
-    .then(response => response.json())
-    .then(jsonData=>{
-    })
-     
-    .catch(err=>{
-        console.error(err)
-    })
-}
 
 
 
@@ -55,7 +26,7 @@ const searchWith = function(event){
  
 })
 .catch(err=>{
-    console.error(err)
+    alert(err)
 })
 }
 
@@ -71,8 +42,8 @@ const loadProducts = function(){
             displayProducts(items)
     } )
     .catch(err=>{
-        console.log(err)
-        displayProducts(err)
+        alert(err)
+       
     })
 }
 
@@ -83,16 +54,20 @@ const displayProducts = function(items){
     console.log(items)
     if(items){
         items.reverse().forEach(item =>{
-               displayCards.innerHTML +=`<div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-                <div class="card" style="width: 18rem;">
-                <img src="${item.imageUrl}" class="card-img-top" alt="...">
+               displayCards.innerHTML +=`<div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-4">
+                <div class="card">
+                <div class="front-img-containter p-2">
+                <img src="${item.imageUrl}" class="card-img-top" alt="Picture of ${item.name}">
+                </div>
+                
                 <div class="card-body">
-                    <h5 class="card-title">Product Name :${item.name}</h5>   
-                    <p class="card-text">User Id : ${item._id}</p>
-                    <p class="card-text"> Brand : ${item.brand}</p>
-                    <p class="card-text"> Price : ${item.price}</p>
-                    <p class="card-text"> Info : ${item.description}</p>
-                    <a href="detail.html?productId=${item._id}" class="btn btn-primary">Detail </a>
+                    <h5 class="card-title bg-warning p-1 text-center text-white">Product Detail</h5>   
+                    <p> Product : ${item.name}</p>
+                    <p> Brand : ${item.brand}</p>
+                    <p> Price : ${item.price}</p>
+                    <p> Info : ${item.description}</p>
+                    <p>User Id : <br/> <small>${item._id}</small></p>
+                    <a href="detail-page.html?productId=${item._id}" class="btn btn-primary">Detail </a>
                 </div>
                 </div>
                 </div>`
@@ -102,9 +77,11 @@ const displayProducts = function(items){
 
 
 
-// window.onload = function(){
-//     loadProducts()
 
 
 
-// }
+ window.onload = function(){
+   loadProducts()
+
+
+ }

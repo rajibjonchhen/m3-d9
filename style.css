@@ -9,3 +9,11 @@ body{
 .display{
     display:block
 }
+
+form.validatd input:invalid, form.validatd textarea:invalid{
+ border-color:red;
+}
+
+form.validatd input:valid, form.validatd textarea:valid{
+ border-color:green;
+}
